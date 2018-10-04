@@ -1,0 +1,23 @@
+{
+	"name": "webstrap",
+	"version": "0.1.0",
+	"description": "",
+	"main": "src/app.js",
+	"scripts": {
+		"start": "node src/app",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bteixeira/webstrap.git"
+	},
+	"author": "Bruno Teixeira",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/bteixeira/webstrap/issues"
+	},
+	"homepage": "https://github.com/bteixeira/webstrap#readme",
+	"dependencies": {
+		"express": "^4.16.3"
+	}
+}
