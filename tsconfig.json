@@ -4,7 +4,8 @@
 		"module": "es6",
 		"target": "es5",
 		"jsx": "react",
-		"lib": ["ES2015"]
+		"lib": ["ES2015"],
+		"moduleResolution": "node"
 	},
 	"files": [
 		"src/assets/ts/index.ts"
