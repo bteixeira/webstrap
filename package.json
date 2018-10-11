@@ -22,7 +22,8 @@
 		"@types/react-dom": "^16.0.8",
 		"express": "^4.16.3",
 		"react": "^16.5.2",
-		"react-dom": "^16.5.2"
+		"react-dom": "^16.5.2",
+		"sass": "^1.14.1"
 	},
 	"devDependencies": {
 		"@types/node": "^10.11.4",
