@@ -7,7 +7,10 @@ module.exports = {
 		rules: [
 			{
 				test: /\.tsx?$/,
-				use: 'awesome-typescript-loader',
+				loader: 'awesome-typescript-loader',
+				options: {
+					configFileName: 'src/assets/tsconfig.json',
+				},
 			},
 			{
 				enforce: 'pre',
