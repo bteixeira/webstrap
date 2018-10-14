@@ -15,7 +15,7 @@ module.exports = {
 			{
 				enforce: 'pre',
 				test: /\.js$/,
-				loader: 'source-map-loader'
+				loader: 'source-map-loader',
 			},
 		],
 	},
@@ -27,4 +27,4 @@ module.exports = {
 		filename: 'bundle.js',
 	},
 	devtool: 'source-map',
-};
+}
