@@ -1,11 +1,29 @@
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import defaultLayout from './layouts/default'
+import defaultLayout from './layouts/defaultLayout'
 import {Response} from 'express'
 
-export function render<T> (res: Response, reactClass: React.ComponentClass<T>, props: T) {
+/**
+ * Escapes a string to be usable in a double-quoted HTML attribute.
+ * NOT SAFE FOR ANY OTHER USAGE (including single-quoted attributes)
+ */
+function escapeForHtml (str: string) {
+	return str.
+			replace(/&/g, '&amp;').
+			replace(/>/g, '&gt;').
+			replace(/</g, '&lt;').
+			replace(/"/g, '&quot;')
+}
+
+export function render<T> (response: Response, componentPath: string, reactClass: React.ComponentClass<T>, props: T) {
 	const element = React.createElement(reactClass, props)
 	const elementMarkup = ReactDOMServer.renderToString(element)
-	const documentMarkup = defaultLayout(elementMarkup)
-	res.send(documentMarkup)
+	const wrapperMarkup = `
+		<div
+			data-react-class="${escapeForHtml(componentPath)}"
+			data-react-props="${escapeForHtml(JSON.stringify(props))}"
+		>${elementMarkup}</div>
+	`
+	const documentMarkup = defaultLayout(wrapperMarkup)
+	response.send(documentMarkup)
 }
