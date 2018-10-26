@@ -5,6 +5,7 @@ export default (content: string, title: string = 'Webstrap') =>
 	<head>
 		<title>${title}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="assets/main.css">
 	</head>
 	<body>
 		<h1>Hello World!</h1>

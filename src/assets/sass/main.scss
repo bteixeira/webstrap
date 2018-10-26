@@ -1,8 +1,2 @@
-@import "forms";
-
-$spacer: 10px;
-
-body, html {
-	margin: 0;
-	padding: $spacer;
-}
+@import "bootstrap-theme";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
