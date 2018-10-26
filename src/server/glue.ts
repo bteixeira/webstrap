@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import defaultLayout from './layouts/defaultLayout'
 import {Response} from 'express'
+import * as Sequelize from 'sequelize'
+import * as databaseConfig from '../../config/database.json' // TODO MUST GET THIS FROM .sequelizerc
 
 /**
  * Escapes a string to be usable in a double-quoted HTML attribute.
@@ -27,3 +29,6 @@ export function render<T> (response: Response, componentPath: string, reactClass
 	const documentMarkup = defaultLayout(wrapperMarkup)
 	response.send(documentMarkup)
 }
+
+export const connection = new Sequelize(databaseConfig.development)
+connection.authenticate()

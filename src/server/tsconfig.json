@@ -6,6 +6,7 @@
 		"target": "es5",
 		"jsx": "react",
 		"lib": ["ES2015", "dom"],
-		"moduleResolution": "node"
+		"moduleResolution": "node",
+		"resolveJsonModule": true
 	}
 }

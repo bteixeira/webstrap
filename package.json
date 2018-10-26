@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "src/app.ts",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "npx ts-node --project src/server/tsconfig.json src/server/app.ts"
 	},
 	"repository": {
 		"type": "git",
@@ -21,11 +22,15 @@
 		"@types/jquery": "^3.3.22",
 		"@types/react": "^16.4.16",
 		"@types/react-dom": "^16.0.8",
+		"@types/sequelize": "^4.27.28",
 		"express": "^4.16.3",
 		"jquery": "^3.3.1",
+		"pg": "^7.5.0",
 		"react": "^16.5.2",
 		"react-dom": "^16.5.2",
-		"sass": "^1.14.1"
+		"sass": "^1.14.1",
+		"sequelize": "^4.41.0",
+		"sequelize-cli": "^5.2.0"
 	},
 	"devDependencies": {
 		"@types/node": "^10.11.4",

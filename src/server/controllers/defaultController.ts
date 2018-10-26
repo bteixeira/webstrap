@@ -1,6 +1,7 @@
 import {Request, Response, Router} from 'express'
 import Home from '../../assets/ts/components/home'
 import * as glue from '../glue'
+import Author, {AuthorInstance} from '../models/author'
 
 const defaultController = Router()
 
@@ -17,11 +18,22 @@ defaultController.get('/', (request: Request, response: Response) => {
  * REST API routes
  */
 defaultController.post('/new', (request: Request, response: Response) => {
-	response.json('[DUMMY] Resource successfully created!')
+	Author.create().then((author: AuthorInstance) => {
+		response.status(201).json(author)
+	}).catch(err => {
+		console.error(err)
+		response.status(500).json(err)
+	})
 })
 
 defaultController.get('/get', (request: Request, response: Response) => {
-	response.json(`[DUMMY] Here is the resource with id ${request.params.id || request.query.id}!`)
+	const id = parseFloat(request.params.id || request.query.id)
+	Author.findById(id).then((author: AuthorInstance) => {
+		response.json(author)
+	}).catch(err => {
+		console.error(err)
+		response.status(400).json(err)
+	})
 })
 
 export default defaultController
