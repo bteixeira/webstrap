@@ -1,9 +1,13 @@
+import * as fs from 'fs'
+import * as path from 'path'
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import defaultLayout from './layouts/defaultLayout'
 import {Response} from 'express'
 import * as Sequelize from 'sequelize'
 import * as databaseConfig from '../../config/database.json' // TODO MUST GET THIS FROM .sequelizerc
+import * as bunyan from 'bunyan'
+import * as BunyanFormat from 'bunyan-format'
 
 /**
  * Escapes a string to be usable in a double-quoted HTML attribute.
@@ -32,3 +36,17 @@ export function render<T> (response: Response, componentPath: string, reactClass
 
 export const connection = new Sequelize(databaseConfig.development)
 connection.authenticate()
+
+
+export const LOG_DIR = 'log'
+if (!fs.existsSync(LOG_DIR)){
+	fs.mkdirSync(LOG_DIR);
+}
+export const logger = bunyan.createLogger({
+	name: 'webstrap', // TODO CONFIG
+	streams: [
+		{stream: new BunyanFormat({outputMode: 'short'})},
+		{path: path.join(LOG_DIR, 'webstrap.log')},
+	],
+	level: 'debug', // TODO CONFIG
+})
