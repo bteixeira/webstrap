@@ -9,6 +9,7 @@ const defaultController = Router()
  * "Normal" route, returns fully rendered HTML page
  */
 defaultController.get('/', (request: Request, response: Response) => {
+	response.locals.logger.info('Hello from the controller')
 	glue.render(response, 'home', Home, {
 		name: 'this is a React component rendered directly from ExpressJS in the server',
 	})

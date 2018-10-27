@@ -4,15 +4,21 @@ import * as express from 'express'
 import {Request, Response} from 'express'
 
 import defaultController from './controllers/defaultController'
-import {logger} from './glue'
+import * as glue from './glue'
 
 /* Inits */
 const app = express()
-const port = 3000
+const PORT = 3000
+
+app.locals.logger = glue.logger
+app.locals.sequelize = glue.sequelize
+var n = 10000 /* Counter for request id */
 
 /* Middleware */
 app.use((request: Request, response: Response, next) => {
+	const logger = glue.logger.child({requestId: n++})
 	logger.info(request.method, request.path)
+	response.locals.logger = logger
 	next()
 })
 
@@ -21,6 +27,6 @@ app.use('/', defaultController)
 app.use('/', express.static(path.resolve(__dirname, '../../public')))
 
 /* Start app */
-app.listen(port, () => {
-	logger.info(`Example app listening on port ${port}!`)
+app.listen(PORT, () => {
+	glue.logger.info(`Example app listening on port ${PORT}!`)
 })

@@ -4,7 +4,7 @@ import * as Sequelize from 'sequelize'
 export interface AuthorAttributes {name: string}
 export type AuthorInstance = Sequelize.Instance<AuthorAttributes> & AuthorAttributes;
 
-const Author = glue.connection.define<AuthorInstance, AuthorAttributes>('Author', {
+const Author = glue.sequelize.define<AuthorInstance, AuthorAttributes>('Author', {
 	name: Sequelize.STRING,
 })
 

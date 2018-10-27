@@ -47,7 +47,7 @@ passed directly to the Sequelize constructor.
 
 #### Adding a database model
 Create a module in `src/server/models` that exports a Sequelize model.  
-Use `glue.connection` to get the Sequelize database connection which you will need to define the model.  
+Use `glue.sequelize` to get the Sequelize database connection which you will need to define the model.  
 Import Sequelize directly to get access to the `DataTypes`.  
 Check `src/server/models/dummy.ts` for an example.  
 Check the [Sequelize documentation](http://docs.sequelizejs.com/manual/tutorial/models-definition.html) directly for

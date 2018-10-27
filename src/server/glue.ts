@@ -34,9 +34,8 @@ export function render<T> (response: Response, componentPath: string, reactClass
 	response.send(documentMarkup)
 }
 
-export const connection = new Sequelize(databaseConfig.development)
-connection.authenticate()
-
+export const sequelize = new Sequelize(databaseConfig.development)
+sequelize.authenticate()
 
 export const LOG_DIR = 'log'
 if (!fs.existsSync(LOG_DIR)){
