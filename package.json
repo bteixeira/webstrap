@@ -5,7 +5,7 @@
 	"main": "src/app.ts",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "npx ts-node --project src/server/tsconfig.json src/server/app.ts"
+		"start": "npx ts-node-dev --project src/server/tsconfig.json src/server/app.ts"
 	},
 	"repository": {
 		"type": "git",
@@ -35,7 +35,8 @@
 		"react-dom": "^16.5.2",
 		"sass": "^1.14.1",
 		"sequelize": "^4.41.0",
-		"sequelize-cli": "^5.2.0"
+		"sequelize-cli": "^5.2.0",
+		"ts-node-dev": "^1.0.0-pre.30"
 	},
 	"devDependencies": {
 		"@types/node": "^10.11.4",
