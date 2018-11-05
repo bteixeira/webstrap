@@ -8,7 +8,6 @@ export default (content: string, title: string = 'Webstrap') =>
 		<link rel="stylesheet" href="assets/main.css">
 	</head>
 	<body>
-		<h1>Hello World!</h1>
 		${content}
 		<script src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
 		<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>

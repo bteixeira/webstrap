@@ -10,8 +10,10 @@ const defaultController = Router()
  */
 defaultController.get('/', (request: Request, response: Response) => {
 	response.locals.logger.info('Hello from the controller')
-	glue.render(response, 'home', Home, {
-		name: 'this is a React component rendered directly from ExpressJS in the server',
+	Author.findAll().then((authors: AuthorInstance[]) => {
+		glue.render(response, 'home', Home, {
+			authors: authors,
+		})
 	})
 })
 
@@ -22,7 +24,7 @@ defaultController.post('/new', (request: Request, response: Response) => {
 	Author.create().then((author: AuthorInstance) => {
 		response.status(201).json(author)
 	}).catch(err => {
-		console.error(err)
+		console.error(err) // TODO REPLACE WITH LOGGER
 		response.status(500).json(err)
 	})
 })
