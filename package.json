@@ -4,8 +4,10 @@
 	"description": "",
 	"main": "src/app.ts",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "npx ts-node-dev --project src/server/tsconfig.json src/server/app.ts"
+		"dev-server": "ts-node-dev --project src/server/tsconfig.json src/server/app.ts",
+		"dev-assets": "webpack --watch",
+		"build": "webpack",
+		"server": "ts-node --project src/server/tsconfig.json src/server/app.ts"
 	},
 	"repository": {
 		"type": "git",
