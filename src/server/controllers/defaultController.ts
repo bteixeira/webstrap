@@ -30,6 +30,16 @@ defaultController.post('/new', (request: Request, response: Response) => {
 	})
 })
 
+defaultController.delete('/authors/:id', (request: Request, response: Response) => {
+	const {id} = request.params
+	Author.destroy({where: {id}}).then((count: number) => {
+		response.status(204).send()
+	}).catch(err => {
+		console.error(err) // TODO REPLACE WITH LOGGER
+		response.status(500).json(err)
+	})
+})
+
 defaultController.get('/get', (request: Request, response: Response) => {
 	const id = parseFloat(request.params.id || request.query.id)
 	Author.findById(id).then((author: AuthorInstance) => {

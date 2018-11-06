@@ -35,7 +35,13 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 										{'\n'}
 										<button type="button" className="btn btn-sm btn-primary">Edit</button>
 										{'\n'}
-										<button type="button" className="btn btn-sm btn-danger">Delete</button>
+										<button
+											type="button"
+											className="btn btn-sm btn-danger"
+											onClick={this.onClickDelete.bind(this, author.id)}
+										>
+											Delete
+										</button>
 									</td>
 								</tr>
 							)
@@ -57,14 +63,27 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 
 	async onClickNew () {
 		const name = window.prompt('What is the author\'s name?')
-		const response = await window.fetch('new', {
+		const response = await window.fetch('/new', {
 			method: 'POST',
 			headers: {'Content-type': 'application/json'},
 			body: JSON.stringify({name}),
 		})
+		// TODO MUST HANDLE ERROR
 		const author: AuthorInstance = await response.json()
 		this.setState(state => ({
 			authors: state.authors.concat(author)
 		}))
+	}
+
+	async onClickDelete (id: number) {
+		if (window.confirm('Really delete?')) {
+			await window.fetch(`/authors/${id}`, {
+				method: 'DELETE',
+			})
+			// TODO MUST HANDLE ERROR
+			this.setState(state => ({
+				authors: state.authors.filter(author => author.id !== id)
+			}))
+		}
 	}
 }
