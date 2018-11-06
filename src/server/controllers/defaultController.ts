@@ -40,6 +40,18 @@ defaultController.delete('/authors/:id', (request: Request, response: Response) 
 	})
 })
 
+defaultController.put('/authors/:id', (request: Request, response: Response) => {
+	const {id} = request.params
+	const {name} = request.body
+	Author.update({name}, {where: {id}, returning: true}).then((result: [number, AuthorInstance[]]) => {
+		const author: AuthorInstance = result[1][0]
+		response.status(200).json(author)
+	}).catch(err => {
+		console.error(err) // TODO REPLACE WITH LOGGER
+		response.status(500).json(err)
+	})
+})
+
 defaultController.get('/get', (request: Request, response: Response) => {
 	const id = parseFloat(request.params.id || request.query.id)
 	Author.findById(id).then((author: AuthorInstance) => {

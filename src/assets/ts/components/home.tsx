@@ -33,12 +33,18 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 									<td>
 										<button type="button" className="btn btn-sm btn-primary">See Books</button>
 										{'\n'}
-										<button type="button" className="btn btn-sm btn-primary">Edit</button>
+										<button
+											type="button"
+											className="btn btn-sm btn-primary"
+											onClick={this.onClickEdit.bind(this, author)}
+										>
+											Edit
+										</button>
 										{'\n'}
 										<button
 											type="button"
 											className="btn btn-sm btn-danger"
-											onClick={this.onClickDelete.bind(this, author.id)}
+											onClick={this.onClickDelete.bind(this, author)}
 										>
 											Delete
 										</button>
@@ -75,8 +81,9 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 		}))
 	}
 
-	async onClickDelete (id: number) {
-		if (window.confirm('Really delete?')) {
+	async onClickDelete (author: AuthorInstance) {
+		const {id, name} = author
+		if (window.confirm(`Really delete ${name}?`)) {
 			await window.fetch(`/authors/${id}`, {
 				method: 'DELETE',
 			})
@@ -84,6 +91,24 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 			this.setState(state => ({
 				authors: state.authors.filter(author => author.id !== id)
 			}))
+		}
+	}
+
+	async onClickEdit (author: AuthorInstance) {
+		const name = window.prompt('What is the new name?', author.name)
+		const {id} = author
+		if (name !== null) {
+			const response = await window.fetch(`/authors/${id}`, {
+				method: 'PUT',
+				headers: {'Content-type': 'application/json'},
+				body: JSON.stringify({name}),
+			})
+			// TODO MUST HANDLE ERROR
+			const newAuthor: AuthorInstance = await response.json()
+			const newAuthors = this.state.authors.map(author => (author.id === id) ? newAuthor : author)
+			this.setState({
+				authors: newAuthors,
+			})
 		}
 	}
 }
