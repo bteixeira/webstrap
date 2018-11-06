@@ -69,7 +69,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 
 	async onClickNew () {
 		const name = window.prompt('What is the author\'s name?')
-		const response = await window.fetch('/new', {
+		const response = await window.fetch('/api/authors', {
 			method: 'POST',
 			headers: {'Content-type': 'application/json'},
 			body: JSON.stringify({name}),
@@ -84,7 +84,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 	async onClickDelete (author: AuthorInstance) {
 		const {id, name} = author
 		if (window.confirm(`Really delete ${name}?`)) {
-			await window.fetch(`/authors/${id}`, {
+			await window.fetch(`/api/authors/${id}`, {
 				method: 'DELETE',
 			})
 			// TODO MUST HANDLE ERROR
@@ -98,7 +98,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 		const name = window.prompt('What is the new name?', author.name)
 		const {id} = author
 		if (name !== null) {
-			const response = await window.fetch(`/authors/${id}`, {
+			const response = await window.fetch(`/api/authors/${id}`, {
 				method: 'PUT',
 				headers: {'Content-type': 'application/json'},
 				body: JSON.stringify({name}),

@@ -3,7 +3,7 @@ import * as path from 'path'
 import * as express from 'express'
 import {Request, Response} from 'express'
 
-import defaultController from './controllers/defaultController'
+import defaultRouter from './routers/defaultRouter'
 import * as glue from './glue'
 
 /* Inits */
@@ -24,7 +24,7 @@ app.use((request: Request, response: Response, next) => {
 })
 
 /* Routing */
-app.use('/', defaultController)
+app.use('/', defaultRouter)
 app.use('/', express.static(path.resolve(__dirname, '../../public')))
 
 /* Start app */
