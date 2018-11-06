@@ -15,6 +15,7 @@ app.locals.sequelize = glue.sequelize
 var n = 10000 /* Counter for request id */
 
 /* Middleware */
+app.use(express.json())
 app.use((request: Request, response: Response, next) => {
 	const logger = glue.logger.child({requestId: n++})
 	logger.info(request.method, request.path)

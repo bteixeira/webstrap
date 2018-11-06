@@ -21,7 +21,8 @@ defaultController.get('/', (request: Request, response: Response) => {
  * REST API routes
  */
 defaultController.post('/new', (request: Request, response: Response) => {
-	Author.create().then((author: AuthorInstance) => {
+	const {name} = request.body
+	Author.create({name}).then((author: AuthorInstance) => {
 		response.status(201).json(author)
 	}).catch(err => {
 		console.error(err) // TODO REPLACE WITH LOGGER

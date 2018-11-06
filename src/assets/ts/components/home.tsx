@@ -56,8 +56,11 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 	}
 
 	async onClickNew () {
+		const name = window.prompt('What is the author\'s name?')
 		const response = await window.fetch('new', {
 			method: 'POST',
+			headers: {'Content-type': 'application/json'},
+			body: JSON.stringify({name}),
 		})
 		const author: AuthorInstance = await response.json()
 		this.setState(state => ({
