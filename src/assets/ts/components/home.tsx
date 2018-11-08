@@ -31,7 +31,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 									<td>{author.id}</td>
 									<td>{author.name}</td>
 									<td>
-										<button type="button" className="btn btn-sm btn-primary">See Books</button>
+										<a href={`authors/${author.id}`}>Books</a>
 										{'\n'}
 										<button
 											type="button"
@@ -97,7 +97,7 @@ export default class Home extends React.Component<HomeProps, HomeState> {
 	async onClickEdit (author: AuthorInstance) {
 		const name = window.prompt('What is the new name?', author.name)
 		const {id} = author
-		if (name !== null) {
+		if (name) {
 			const response = await window.fetch(`/api/authors/${id}`, {
 				method: 'PUT',
 				headers: {'Content-type': 'application/json'},

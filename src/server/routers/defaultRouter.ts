@@ -1,10 +1,14 @@
 import {Request, Response, Router} from 'express'
 import Home from '../../assets/ts/components/home'
+import AuthorBooks from '../../assets/ts/components/authorBooks'
 import * as glue from '../glue'
 import Author, {AuthorInstance} from '../models/author'
 import apiRouter from './apiRouter'
+import Book from '../models/book'
 
 const defaultRouter = Router()
+
+console.log(Book)
 
 defaultRouter.get('/', (request: Request, response: Response) => {
 	response.locals.logger.info('Hello from the controller')
@@ -15,16 +19,25 @@ defaultRouter.get('/', (request: Request, response: Response) => {
 	})
 })
 
-defaultRouter.use('/api/', apiRouter)
+defaultRouter.get('/authors/:authorId', (request: Request, response: Response) => {
+	Author.findById(
+		request.params.authorId,
+		{
+			include: [{
+				model: Book,
+			}],
+		}
+	).then((author: AuthorInstance) => {
+		glue.render(response, 'authorBooks', AuthorBooks, {
+			author: author,
+			books: author.Books,
+		})
+	}).catch(err => {
+		console.error(err) // TODO REPLACE WITH LOGGER
+		response.status(500).json(err)
+	})
+})
 
-// defaultRouter.get('/get', (request: Request, response: Response) => {
-// 	const id = parseFloat(request.params.id || request.query.id)
-// 	Author.findById(id).then((author: AuthorInstance) => {
-// 		response.json(author)
-// 	}).catch(err => {
-// 		console.error(err)
-// 		response.status(400).json(err)
-// 	})
-// })
+defaultRouter.use('/api/', apiRouter)
 
 export default defaultRouter
