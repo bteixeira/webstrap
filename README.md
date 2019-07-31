@@ -13,7 +13,7 @@ $ npx sass src/assets/sass/main.scss public/assets/main.css
 
 Start the app server (also serves static assets):
 ```bash
-$ npx ts-node --project src/server/tsconfig.json src/server/app.ts
+$ npm run server
 ```
 
 ## Database Access
